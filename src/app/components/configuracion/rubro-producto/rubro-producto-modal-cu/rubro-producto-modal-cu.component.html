@@ -1,0 +1,13 @@
+<h1 mat-dialog-title fxLayout="row" fxLayoutAlign="center center" class="nombre-dialogo">{{tituloModal}}</h1>
+<form [formGroup]="formRubroProducto" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content>
+    <mat-form-field>
+      <input matInput formControlName="descripcion" placeholder="Nuevo Rubro" required autocomplete="off" > 
+      <mat-error *ngIf="descripcion">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button cdkFocusInitial type="submit">Grabar</button>
+    <button mat-button (click)="onCancel()" type="button">Cancelar</button>
+  </div>
+</form>

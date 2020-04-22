@@ -1,0 +1,160 @@
+<form [formGroup]="agenteForm" (ngSubmit)="onSubmit()">
+    <mat-vertical-stepper #stepper>
+        <mat-step [stepControl]="firstFormGroup">
+            <ng-template matStepLabel>Datos del Agente</ng-template>
+            <div formGroupName="firstFormGroup">
+            <div class="form-column">
+                    <div class="form-row">
+                        <mat-form-field class="cell-size-25">
+                            <input matInput placeholder="Apellido" formControlName="apellidoCtrl" required minlength="5"
+                                maxlength="12">
+                        </mat-form-field>                    
+                        <mat-form-field class="cell-size-25">
+                            <input matInput placeholder="Nombre" formControlName="nombreCtrl" required
+                                minlength="2">
+                        </mat-form-field>
+                        <mat-form-field class="cell-size-25">
+                            <input matInput placeholder="DNI" formControlName="dniCtrl" required minlength="8"
+                                maxlength="12">
+                        </mat-form-field> 
+                    </div>
+                    <div class="form-row">
+                        <mat-form-field class="cell-size-25">
+                            <input matInput placeholder="Cuil" formControlName="cuilCtrl" required minlength="11"
+                                maxlength="12">
+                        </mat-form-field>                     
+                        <mat-form-field class="cell-size-25">
+                            <input matInput formControlName="telefonoCtrl" type="string" placeholder="telefono">              
+                        </mat-form-field>                          
+                        <mat-form-field class="cell-size-25">
+                            <input matInput formControlName="correoElectronicoCtrl" type="string" placeholder="Correo Electronico">              
+                        </mat-form-field>                    
+                        <mat-form-field class="cell-size-25">
+                            <input matInput formControlName="numeroIpss" type="string" placeholder="Numero Ipss">              
+                        </mat-form-field>
+                    </div>
+                    <div class="form-row">                            
+                        <mat-form-field class="cell-size-25">
+                           <input matInput [matDatepicker]="fechaNacimiento" placeholder="Fecha Nacimiento">
+                            <mat-datepicker-toggle matSuffix [for]="fechaNacimiento"></mat-datepicker-toggle>
+                            <mat-datepicker #fechaNacimiento></mat-datepicker>  
+                        </mat-form-field>                       
+                        <mat-form-field class="cell-size-25">
+                            <input matInput formControlName="legajo" type="string" placeholder="Legajo">              
+                        </mat-form-field>                          
+                        <mat-form-field class="cell-size-25">
+                            <input matInput formControlName="matricula" type="string" placeholder="Matricula">              
+                        </mat-form-field>
+                        <mat-form-field class="cell-size-25">
+                            <mat-select placeholder="Seleccione el sexo" formControlName="sexoSelect">
+                                <mat-option  *ngFor="let sexo of sexos$ | async" [value]="sexo.id">{{sexo.descripcion}}
+                                </mat-option>                    
+                            </mat-select>
+                          </mat-form-field>
+                    </div>
+                    <div class="form-row">                  
+                        <mat-form-field class="cell-size-25">
+                            <mat-select placeholder="Seleccione el estado civil" formControlName="estCivilSelect">
+                                <mat-option  *ngFor="let estCivil of estadoCivil$ | async" [value]="estCivil.id">{{estCivil.descripcion}}
+                                </mat-option>                    
+                            </mat-select>
+                          </mat-form-field>                    
+                        <mat-form-field class="cell-size-25">
+                            <mat-select placeholder="Seleccione el sector" formControlName="sectorSelect">
+                                <mat-option  *ngFor="let sector of sectores$ | async" [value]="sector.id">{{sector.descripcion}}
+                                </mat-option>                    
+                            </mat-select>
+                        </mat-form-field>                      
+                        <mat-form-field class="cell-size-25">
+                            <mat-select placeholder="Seleccione la funcion" formControlName="funcionSelect">
+                                <mat-option  *ngFor="let funcion of funciones$ | async" [value]="funcion.id">{{funcion.descripcion}}
+                                </mat-option>                    
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="cell-size-25">
+                            <mat-select placeholder="Seleccione la categoria" formControlName="categoriaSelect">
+                                <mat-option  *ngFor="let categoria of categorias$ | async" [value]="categoria.id">{{categoria.descripcion}}
+                                </mat-option>                    
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-row">             
+                         <mat-form-field class="cell-size-25">
+                            <mat-select placeholder="Seleccione el titulo" formControlName="tituloSelect">
+                                <mat-option  *ngFor="let titulo of titulo$ | async" [value]="titulo.id">{{titulo.descripcion}}
+                                </mat-option>                    
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="cell-size-25">
+                             <input matInput [matDatepicker]="fechaIngreso" placeholder="Fecha de Ingreso">
+                            <mat-datepicker-toggle matSuffix [for]="fechaIngreso"></mat-datepicker-toggle>
+                            <mat-datepicker #fechaIngreso></mat-datepicker>
+                        </mat-form-field>        
+                    </div>          
+                    
+                    <div>
+                        <button mat-button matStepperNext type="button"
+                            [disabled]="!agenteForm.controls['firstFormGroup'].valid">Siguiente</button>
+                    </div>
+                </div>
+        </div>
+        </mat-step>
+
+        <mat-step [stepControl]="secondFormGroup">        
+
+        <ng-template matStepLabel>Domicilio</ng-template>
+        <div formGroupName="secondFormGroup">
+          <div class="form-column">
+                    
+                    <div class="form-row">
+                        <mat-form-field class="cell-size-50">
+                            <mat-select placeholder="Seleccione una Provincia" formControlName="provinciaCtrl" (selectionChange)="getLocalidades($event)">
+                                <mat-option *ngFor="let prov of provincias$ | async" [value]="prov.id">
+                                    {{prov.descripcion}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field class="cell-size-50">
+                            <mat-select placeholder="Seleccione una Localidad" formControlName="departamentoCtrl">                                
+                                <mat-option  *ngFor="let item of localidades" [value]="item.id">
+                                    {{item.descripcion}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>    
+
+                    <div class="form-row">
+                        <mat-form-field class="cell-size-25">
+                            <input matInput formControlName="calle" type="string" placeholder="Calle">              
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-row">
+                        <mat-form-field class="cell-size-25">
+                            <input matInput formControlName="numero" type="string" placeholder="Numero">              
+                        </mat-form-field>
+                    </div>
+                    <div class="form-row">
+                        <mat-form-field class="cell-size-25">
+                            <input matInput formControlName="piso" type="string" placeholder="Piso">                
+                        </mat-form-field>          
+                    </div>
+                    <div class="form-row">
+                        <mat-form-field class="cell-size-25">
+                            <input matInput formControlName="dpto" type="string" placeholder="Piso">                
+                        </mat-form-field>          
+                    </div>
+                    <div class="form-row">
+                        <mat-form-field class="cell-size-25">
+                            <input matInput formControlName="codigopostal" type="string" placeholder="Codigo Postal">              
+                        </mat-form-field>
+                    </div>
+              </div> 
+              </div>          
+            <div>
+                <button mat-button matStepperPrevious type="button">Volver</button>
+                <button mat-button type="submit">Grabar</button>
+            </div>
+        </mat-step>
+    </mat-vertical-stepper>
+</form>

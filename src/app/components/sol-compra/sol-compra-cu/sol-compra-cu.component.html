@@ -1,0 +1,116 @@
+<mat-toolbar class="titulo mat-elevation-z2 top-shadow" color="primary">
+    <mat-toolbar-row>
+        <span>{{titulo$  | async}}</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+<div class="component-wrapper">
+    <form [formGroup]="detalleSolicitudform" (ngSubmit)="onSubmit()">
+        <div class="form-column">
+
+            <div class="form-row">
+                <mat-form-field class="cell-size-25">
+                    <input matInput placeholder="Fecha" formControlName="fecha" required minlength="11" maxlength="12"
+                        autocomplete="off">
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+                <mat-form-field class="cell-size-50">
+                    <input matInput placeholder="Apellido y Nombre el Agente" formControlName="apeynomAgen" required minlength="2"
+                        autocomplete="off">
+                </mat-form-field>
+               <mat-form-field class="cell-size-50">
+                    <input matInput placeholder="Sector" formControlName="sector" required minlength="2"
+                        autocomplete="off">
+                </mat-form-field>
+            </div>
+         
+            <div class="form-row">
+                <mat-form-field class="cell-size-50">
+                    <mat-select placeholder="Seleccione un Producto" formControlName="productoId">
+                        <mat-option *ngFor="let prov of productos$ | async" [value]="prov">
+                            {{prov.descripcion}}
+                        </mat-option>
+                    </mat-select>                  
+                </mat-form-field>               
+                <mat-form-field class="cell-size-100">
+                    <input matInput placeholder="Cantidad" formControlName="cantidad">
+                </mat-form-field>
+                 <mat-form-field class="cell-size-100">
+                    <input matInput placeholder="Caracteristica" formControlName="caracteristica">
+                </mat-form-field>
+            </div>
+
+        </div>
+        <div>
+            <a mat-button type="button" (click)="addRow()">Agregar</a>          
+        </div>
+
+    <div class="tabla">
+        <table mat-table class="table-hover" [dataSource]="datasource" style="width: 100%;" matSort>
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.id}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="productodesc">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Producto</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.productodesc}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="caracteristica">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Caracteristica</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.caracteristica}}
+                </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="cantidad">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.cantidad }}
+                </td>
+            </ng-container>            
+            <ng-container matColumnDef="gest">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element">
+
+                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="menu de solicitud">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <!-- [routerLink]="['modificar-solicitud', element.id]" -->
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item color="accent">
+                            <mat-icon>delete</mat-icon>
+                            <span> Eliminar</span>
+                        </button>
+                        <button mat-menu-item disabled>
+                            <mat-icon>send</mat-icon>
+                            <span>Enviar</span>
+                        </button>
+                        <button mat-menu-item>
+                            <mat-icon>notifications_off</mat-icon>
+                            <span>aceptar?</span>
+                        </button>
+                    </mat-menu>
+                </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true;"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns; let element;" class="element-row">
+
+            </tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[10, 15,20]"></mat-paginator>
+    </div>
+
+        <div>
+            <a routerLink='/sol-compra' mat-button type="button">Volver</a>
+            <button mat-button type="submit" [disabled]="!detalleSolicitudform.valid">Grabar</button>
+        </div>
+
+    </form>
+</div>

@@ -1,0 +1,201 @@
+
+/*Material Icons*/
+@import "./assets/material-icons/material-icons.css";
+
+/*Google Fonts*/
+@import "./assets/google-fonts/google-fonts.css";
+
+@import '~@angular/material/theming';
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$custom-app-primary: mat-palette($mat-teal, 700, 500, 900);
+$custom-app-accent:  mat-palette($mat-indigo, 600);
+
+// The warn palette is optional (defaults to red).
+$custom-app-warn:    mat-palette($mat-red, 800);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$custom-app-theme: mat-light-theme($custom-app-primary, $custom-app-accent, $custom-app-warn);
+
+
+@include angular-material-theme($custom-app-theme);
+
+
+html {
+    font-family: 'Roboto', sans-serif;
+}
+
+html, body{
+    height: 100%;
+}
+
+body{
+    margin: 0;
+    padding: 0;  
+}
+
+div.container
+{
+    display: flex;
+    margin-bottom: 10px;
+    
+}
+
+div.container > div
+{
+    flex: 1 1 5em;
+    margin-left: 10px;
+}
+.full-width {
+    width: 100%;
+ }
+
+
+.component-wrapper{
+    padding: 20px 5%;    
+}
+
+.top-shadow{
+    -webkit-box-shadow: inset 0px 6px 10px -1px rgba(0,0,0,0.2);
+    -moz-box-shadow: inset 0px 6px 10px -1px rgba(0,0,0,0.2);
+    box-shadow: inset 0px 6px 10px -1px rgba(0,0,0,0.2);
+}
+
+.uppercase{
+    text-transform: uppercase;
+}
+
+.padding-top {
+    padding-top: 20px;
+}
+
+.padding-bottom{
+    padding-bottom: 20px;
+}
+
+.padding-right{
+    padding-right: 20px;
+}
+.padding-left{
+    padding-left: 20px;
+}
+.spacer {
+    flex: 1 1 auto;
+}
+.mat-simple-snackbar-action {
+    color: #fafafa;
+  }
+//  --------------Formularios--------------------*
+.form-card-container {
+  margin: 20px 10%;
+  transition: ease all 0.5s;
+}
+
+div.form-column {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+div.form-column > div.form-row{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+div.form-column > div.form-row:last-child{
+    margin-bottom: 0;
+}
+
+div.form-column > div.form-row > mat-form-field[class^="cell-size"]{
+    margin-right: 10px;
+}
+
+div.form-column > div.form-row > mat-form-field[class^="cell-size"]:last-child{
+    margin-right: 0;
+}
+
+div.form-column > div.form-row > mat-form-field.cell-size-25{
+    box-sizing: border-box;
+    flex: 1 1 100%;
+    max-width: 25%;
+}
+
+div.form-column > div.form-row > mat-form-field.cell-size-3{
+    box-sizing: border-box;
+    flex: 1 1 100%;
+    max-width: 33.333333%;
+}
+
+div.form-column > div.form-row > mat-form-field.cell-size-50{
+    box-sizing: border-box;
+    flex: 1 1 100%;
+    max-width: 50%;
+}
+
+div.form-column > div.form-row > mat-form-field.cell-size-75{
+    box-sizing: border-box;
+    flex: 1 1 100%;
+    max-width: 75%;
+}
+
+div.form-column > div.form-row > mat-form-field.cell-size-100{
+    box-sizing: border-box;
+    flex: 1 1 100%;
+    max-width: 100%;
+}
+div.form-column > div.form-row > mat-form-field.cell-size-25{
+    box-sizing: border-box;
+    flex: 1 1 100%;
+    max-width: 25%;
+}
+
+.cell-size-100{
+    box-sizing: border-box;
+    flex: 1 1 100%;
+    max-width: 100%;
+}
+.cell-size-50{
+    box-sizing: border-box;
+    flex: 1 1 100%;
+    max-width: 50%;
+}
+
+@media only screen and (max-width: 1400px) {
+  .form-card-container {
+    margin: 20px 5%;
+  }
+}
+
+
+//--------------------------------------------------------------------- cosas del dialogo bb-------------------------------------------------------------------------------
+.dialog-title span{
+    padding-left: 10px;
+}
+.full-width
+// ---------------------------------------------------------------------- cosas de la tabla beibi----------------------------------------------------------------------------------------------------
+table {
+    width: 100%;
+    
+  }
+     
+  tr.element-row:not(.expanded-row):hover {
+    background: rgba(0, 0, 0, 0.04);
+  }
+  
+  tr.element-row:not(.expanded-row):active {
+    background: rgba(0, 0, 0, 0.25);
+  }
+  
+
+  .list-item-active {
+    font-weight: bold;
+    color: mat-color($custom-app-primary, darker) !important;
+  }

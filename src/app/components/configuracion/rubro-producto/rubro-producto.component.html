@@ -1,0 +1,77 @@
+<mat-toolbar class="titulo mat-elevation-z2 top-shadow" color="primary">
+        <mat-toolbar-row>
+            <span>Rubros</span>
+            <span class="spacer"></span>
+            <button *ngIf="rubroCount === 0" mat-raised-button (click)="onCreateRubro()">Nuevo Rubro</button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div class="component-wrapper">
+    
+        <div fxLayoutAlign="end start">
+            <mat-form-field>
+                <input matInput placeholder="Buscar" (keyup)="applyFilter($event.target.value)" #search autocomplete="off">
+            </mat-form-field>
+        </div>
+    
+        <button *ngIf="rubroCount > 0" mat-raised-button class="button uppercase" (click)="onCreateRubro()"
+            color="accent">
+            <mat-icon>add</mat-icon>
+            Nuevo
+        </button>
+        <sag-spinner *ngIf="isLoading$ | async"></sag-spinner>
+    
+        <div fxLayoutAlign="end center" class="padding-right padding-bottom">
+            <mat-checkbox labelPosition="before" color="primary" (change)="onToggleCheck($event)">
+                Mostrar Todos
+            </mat-checkbox>
+        </div>
+        <div class="table-container">
+    
+            <table mat-table class="table-hover" [dataSource]="dataSource" style="width: 100%;" matSort>
+    
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef>Id</th>
+                    <td mat-cell *matCellDef="let element">{{element.id}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="activo">
+                    <th mat-header-cell *matHeaderCellDef>Activo</th>
+                    <td mat-cell *matCellDef="let element"> {{element.activo}} </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="descripcion">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Descripción</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.descripcion}}
+                    </td>
+                </ng-container>
+    
+                <ng-container matColumnDef="gest">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element">
+                        <button *ngIf="element.activo" mat-button color="accent" matTooltip="Modificar"
+                            matTooltipPosition="before" matSuffix mat-icon-button aria-label="Modificar"
+                            (click)="onEditRubro(element)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button *ngIf="element.activo" mat-button matTooltip="Eliminar" matTooltipPosition="after" matSuffix
+                            mat-icon-button aria-label="Eliminar" (click)="onDeleteRubro(element)">
+                            <mat-icon>clear</mat-icon>
+                        </button>
+                        <button *ngIf="!element.activo" mat-button color="accent" matTooltip="Activar"
+                            matTooltipPosition="after" matSuffix mat-icon-button aria-label="activar"
+                            (click)="onActivateRubro(element)">
+                            <mat-icon>done</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+    
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true;"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns; let element;" class="element-row">
+    
+                </tr>
+            </table>
+            <mat-paginator [pageSizeOptions]="[ 10, 15,20]"></mat-paginator>
+        </div>
+    
+    </div>

@@ -1,0 +1,27 @@
+<mat-nav-list>
+    <a mat-list-item *ngFor="let menu of menuItems$ | async" routerLink="{{menu.route}}" routerLinkActive="list-item-active">
+        <mat-icon mat-list-icon>{{menu.icono}}</mat-icon>
+        {{menu.nombre}}
+    </a>
+</mat-nav-list>
+<mat-divider></mat-divider>
+<mat-accordion>
+    <mat-expansion-panel *ngFor="let menu of menuItemsCS$ | async">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <mat-icon>{{menu.icono}}</mat-icon>                
+                <span>{{menu.nombre}}</span>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p *ngFor="let smenu of menu.subMenu" class="hoverable">
+            <a routerLink="{{smenu.route}}" routerLinkActive="list-item-active">
+                    <div fxLayoutAlign="start center"> 
+                    <mat-icon>
+                            keyboard_arrow_right
+                    </mat-icon>
+                        {{smenu.nombre}}
+                    </div>
+            </a>
+        </p>
+    </mat-expansion-panel>
+</mat-accordion>

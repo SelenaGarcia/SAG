@@ -1,0 +1,179 @@
+<mat-toolbar class="titulo mat-elevation-z2 top-shadow" color="primary">
+    <mat-toolbar-row>
+        <span>Solucitud de Compra</span>
+        <span class="spacer"></span>
+        <a mat-raised-button *ngIf="solicitudCompraCount === 0">
+            Nueva Solicitud
+        </a>
+    </mat-toolbar-row>
+</mat-toolbar>
+<div class="component-wrapper">
+
+    <!-- Botón nuevo -->
+    <a [routerLink]="['nueva-solicitud', 1]" *ngIf="solicitudCompraCount > 0" mat-raised-button class="button uppercase"
+        color="accent">
+        <mat-icon>add</mat-icon>
+        Nueva
+    </a>
+    <!-- Filtros de Fecha -->
+    <div class="datepicker" fxLayoutAlign="end start">
+        <!-- Buscar -->
+        <div fxLayoutAlign="end start">
+            <mat-form-field class="buscarSolicitud">
+                <input matInput placeholder="Buscar" (keyup)="applyFilter($event.target.value)" #search
+                    autocomplete="off">
+            </mat-form-field>
+        </div>
+        <mat-form-field class="datepickerDesde">
+            <input matInput [matDatepicker]="picker1" placeholder="Fecha Inicial" [formControl]="date">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="datepickerHasta">
+            <input matInput [matDatepicker]="picker2" placeholder="Fecha Final" [formControl]="serializedDate">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+    </div>
+
+    <!-- Spinner -->
+    <sag-spinner *ngIf="this.solicitudCompraService.isLoading$ | async"></sag-spinner>
+
+    <div class="tabla">
+        <table mat-table class="table-hover" [dataSource]="dataSource" style="width: 100%;" matSort>
+
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.id }}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="UsuarioId">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.usuarioId }}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="agenteId">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.agenteId }}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="motivoRechazo">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.motivoRechazo }}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="fechaAprobacion">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.fechaAprobacion }}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="fechaEnvioColegio">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.fechaEnvioColegio }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="activo">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Activo</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.activo }}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="numero">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Nro. Solicitud</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.numero }}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="sector">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Sector</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.sector }}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="fecha">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de Creación</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.fecha | date}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="fechaRegresoColegio">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de Retorno</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.fechaRegresoColegio | date}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="fechaRechazo">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de Rechazo</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.fechaRechazo | date }}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="fechaFirma">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de Firma</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.fechaFirma | date}}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="estadoSolicitudCompra">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+                <td mat-cell *matCellDef="let element">
+                    {{element.estadoSolicitudCompra }}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="gest">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element">
+
+                    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="menu de solicitud">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <!-- menu -->
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item color="accent" [routerLink]="['modificar-solicitud', element.id]">
+                            <mat-icon>edit</mat-icon>
+                            <span> Modificar</span>
+                        </button>
+                        <button mat-menu-item >
+                            <mat-icon>send</mat-icon>
+                            <span>Enviar</span>
+                        </button>
+                        <button mat-menu-item  [routerLink]="['nuevo-presupuesto']">
+                            <mat-icon>send</mat-icon>
+                            <span>adjuntar Persupuesto</span>
+                        </button>
+                        <button mat-menu-item  [routerLink]="['presupuesto']">
+                            <mat-icon>send</mat-icon>
+                            <span>Persupuestos</span>
+                        </button>
+                        <button mat-menu-item>
+                            <mat-icon>notifications_off</mat-icon>
+                            <span>Aprobar</span>
+                        </button>
+                    </mat-menu>
+
+
+
+
+
+                </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true;"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns; let element;" class="element-row">
+
+            </tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[10, 15,20]"></mat-paginator>
+    </div>
+
+
+</div>

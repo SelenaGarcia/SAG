@@ -1,0 +1,87 @@
+<mat-toolbar class="titulo mat-elevation-z2 top-shadow" color="primary">
+    <mat-toolbar-row>
+        <span>{{titulo$  | async}}</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+<div class="component-wrapper">
+    <form [formGroup]="presupuestoForm">
+        <div class="form-column">
+
+            <div class="form-row">
+                <mat-form-field class="cell-size-25">
+                    <input matInput placeholder="Número de presupuesto" formControlName="numeroPresupuesto" required
+                        autocomplete="off">
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+
+                <mat-form-field class="cell-size-50">
+                    <mat-select placeholder="Seleccione un Proveedor" formControlName="proveedor">
+                        <mat-option *ngFor="let prov of proveedores$ | async" [value]="prov.id">
+                            {{prov.razonSocial}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="cell-size-25">
+                    <input matInput [matDatepicker]="picker3" placeholder="Fecha" [formControl]="dateFecha">
+                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                    <mat-datepicker #picker3></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field class="cell-size-25">
+                    <input matInput [matDatepicker]="picker4" placeholder="Fecha de Vencimiento"
+                        [formControl]="dateFechaVencimiento">
+                    <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                    <mat-datepicker #picker4></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+        <mat-divider>
+        </mat-divider>
+
+        <div class="tabla" flex>
+            <table mat-table class="table-hover" [dataSource]="dataSource" style="width: 100%;" matSort>
+
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.id }}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="producto">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Proveedor</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.producto}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="fecha">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.fecha }}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="fechaVencimiento">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Vencimiento</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{element.fechaVencimiento }}
+                    </td>
+                </ng-container>
+                
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+               
+
+            </table>
+            <mat-paginator [pageSizeOptions]="[10, 15,20]"></mat-paginator>
+        </div>
+
+        <mat-form-field class="cell-size-50" flexLayout="start end">
+            <input matInput placeholder="Total" formControlName="total">
+        </mat-form-field>
+        <div>
+            <a routerLink='/presupuesto' mat-button type="button">Volver</a>
+            <button mat-button type="submit" [disabled]="!presupuestoForm.valid">Grabar</button>
+        </div>
+
+    </form>
+</div>

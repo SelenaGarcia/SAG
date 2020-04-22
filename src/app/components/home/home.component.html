@@ -1,0 +1,30 @@
+<div class="container" [class.is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="toolbar">
+    <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+    <img src="\assets\img\sag2.png" alt="SAG" width="50px" ng-fallimg class="padding-left">
+    
+    <!-- <h1 class="app-name">
+      Sistema de Administración de Gastos
+    </h1> -->
+  </mat-toolbar>
+
+  <mat-sidenav-container autosize class="sidenav-container"
+                         [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" opened="true">
+      <mat-nav-list >
+       <!-- Menu -->
+
+       <sag-menu></sag-menu>
+      </mat-nav-list>
+    </mat-sidenav>      
+    <mat-sidenav-content>
+      <!-- Contenido -->
+      
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
+
+
+

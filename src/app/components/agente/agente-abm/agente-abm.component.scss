@@ -1,0 +1,65 @@
+.form-card-container {
+  margin: 20px 10%;
+  transition: ease all 0.5s;
+}
+
+div.form-column {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+div.form-column > div.form-row{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+div.form-column > div.form-row:last-child{
+    margin-bottom: 0;
+}
+
+div.form-column > div.form-row > mat-form-field[class^="cell-size"]{
+    margin-right: 10px;
+}
+
+div.form-column > div.form-row > mat-form-field[class^="cell-size"]:last-child{
+    margin-right: 0;
+}
+
+div.form-column > div.form-row > mat-form-field.cell-size-25{
+    box-sizing: border-box;
+    flex: 1 1 100%;
+    max-width: 25%;
+}
+
+div.form-column > div.form-row > mat-form-field.cell-size-3{
+    box-sizing: border-box;
+    flex: 1 1 100%;
+    max-width: 33.333333%;
+}
+
+div.form-column > div.form-row > mat-form-field.cell-size-50{
+    box-sizing: border-box;
+    flex: 1 1 100%;
+    max-width: 50%;
+}
+
+div.form-column > div.form-row > mat-form-field.cell-size-75{
+    box-sizing: border-box;
+    flex: 1 1 100%;
+    max-width: 75%;
+}
+
+div.form-column > div.form-row > mat-form-field.cell-size-100{
+    box-sizing: border-box;
+    flex: 1 1 100%;
+    max-width: 100%;
+}
+
+@media only screen and (max-width: 1400px) {
+  .form-card-container {
+    margin: 20px 5%;
+  }
+}

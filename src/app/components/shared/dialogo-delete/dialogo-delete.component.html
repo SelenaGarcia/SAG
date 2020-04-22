@@ -1,0 +1,13 @@
+<h1 mat-dialog-title fxLayoutAlign="start center" class="dialog-title">
+    <mat-icon>{{icono}}</mat-icon>
+    <span>{{titulo}}</span>
+</h1>
+<mat-divider></mat-divider>
+<div mat-dialog-content>
+  <p class="padding-top padding-bottom">{{mensaje}}</p>  
+</div>
+<div mat-dialog-actions> 
+  <button mat-button (click)="onDelete()">Ok</button>
+  <button mat-button cdkFocusInitial (click)="onClose()">Cancelar</button>
+</div>
+

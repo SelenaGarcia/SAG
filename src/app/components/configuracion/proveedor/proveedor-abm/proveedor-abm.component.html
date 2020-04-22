@@ -1,0 +1,93 @@
+<mat-toolbar class="titulo mat-elevation-z2 top-shadow" color="primary">
+    <mat-toolbar-row>
+        <span>{{titulo$  | async}}</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+<div class="component-wrapper">
+    <form [formGroup]="proveedorForm" (ngSubmit)="onSubmit()">
+        <div class="form-column">
+
+            <div class="form-row">
+                <mat-form-field class="cell-size-25">
+                    <input matInput placeholder="Cuit" formControlName="cuit" required minlength="11" maxlength="12"
+                        autocomplete="off">
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+                <mat-form-field class="cell-size-50">
+                    <input matInput placeholder="Razón Social" formControlName="razonSocial" required minlength="2"
+                        autocomplete="off">
+                </mat-form-field>
+                <mat-form-field class="cell-size-50">
+                    <mat-select placeholder="Seleccione un Rubro" formControlName="rubroProveedor">
+                        <mat-option *ngFor="let item of rubroProveedores$ | async" [value]="item.id">
+                            {{item.descripcion}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+                <mat-form-field class="cell-size-25">
+                    <input matInput placeholder="Teléfono" formControlName="telefono">
+                </mat-form-field>
+                <mat-form-field class="cell-size-75">
+                    <input matInput placeholder="E-mail" formControlName="email">
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+                <mat-form-field class="cell-size-100">
+                    <input matInput placeholder="Web" formControlName="web">
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+                <mat-form-field class="cell-size-50">
+                    <mat-select placeholder="Seleccione una Provincia" formControlName="provincia"
+                        (selectionChange)="getLocalidades($event)">
+                        <mat-option *ngFor="let prov of provincias$ | async" [value]="prov.id">
+                            {{prov.descripcion}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="cell-size-50">
+                    <mat-select placeholder="Seleccione una Localidad" formControlName="localidad">
+                        <mat-option *ngFor="let item of localidades" [value]="item.id">
+                            {{item.descripcion}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+                <mat-form-field class="cell-size-100">
+                    <input matInput placeholder="Calle" formControlName="calle">
+                </mat-form-field>
+            </div>
+
+            <div class="form-row">
+                <mat-form-field class="cell-size-25">
+                    <input matInput placeholder="Número" formControlName="numero">
+                </mat-form-field>
+                <mat-form-field class="cell-size-25">
+                    <input matInput placeholder="Piso" formControlName="piso">
+                </mat-form-field>
+                <mat-form-field class="cell-size-25">
+                    <input matInput placeholder="Oficina" formControlName="oficina">
+                </mat-form-field>
+                <mat-form-field class="cell-size-25">
+                    <input matInput placeholder="Código Postal" formControlName="codigoPostal">
+                </mat-form-field>
+            </div>
+
+        </div>
+
+        <div>
+            <a routerLink='/proveedor' mat-button type="button">Volver</a>
+            <button mat-button type="submit" [disabled]="!proveedorForm.valid">Grabar</button>
+        </div>
+
+    </form>
+</div>
